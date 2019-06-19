@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ItemList from './ItemList'
+import DeleteItem from './DeleteItem'
 
 class App extends React.Component {
   state = {
@@ -21,16 +22,19 @@ class App extends React.Component {
   };
 
   deleteLastItem = event => {
-    this.setState(prevState => ({ items: this.state.items.slice(0, -1) }));
+    this.setState(prevState => ({ 
+      items: prevState.items.slice(0, -1) 
+    }))
+  };
+
+  noItemsFound = () => {
+    return this.state.items.length === 0;
   };
 
   inputIsEmpty = () => {
     return this.state.value === '';
   };
 
-  noItemsFound = () => {
-    return this.state.items.length === 0;
-  };
 
   render() {
     return (
@@ -50,9 +54,8 @@ class App extends React.Component {
           <button disabled={this.inputIsEmpty()}>Add</button>
         </form>
 
-        <button onClick={this.deleteLastItem} disabled={this.noItemsFound()}>
-          Delete Last Item
-        </button>
+		<DeleteItem deleteLastItem={this.deleteLastItem}
+				 	  buttonDisabled={this.noItemsFound}/>
 
 		<ItemList items={this.state.items}/>
 
