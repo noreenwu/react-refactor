@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import ItemList from './ItemList'
 import DeleteItem from './DeleteItem'
+import CreateItem from './CreateItem'
+
 
 class App extends React.Component {
   state = {
@@ -14,10 +16,9 @@ class App extends React.Component {
     this.setState({ value: event.target.value });
   };
 
-  addItem = event => {
-    event.preventDefault();
+  addItem = (v) => {
     this.setState(oldState => ({
-      items: [...oldState.items, this.state.value],
+      items: [...oldState.items, v],
     }));
   };
 
@@ -31,11 +32,6 @@ class App extends React.Component {
     return this.state.items.length === 0;
   };
 
-  inputIsEmpty = () => {
-    return this.state.value === '';
-  };
-
-
   render() {
     return (
       <div className="App">
@@ -44,21 +40,12 @@ class App extends React.Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <h2>Shopping List</h2>
-        <form onSubmit={this.addItem}>
-          <input
-            type="text"
-            placeholder="Enter New Item"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <button disabled={this.inputIsEmpty()}>Add</button>
-        </form>
+		<CreateItem onAddItem={this.addItem}/>
 
 		<DeleteItem deleteLastItem={this.deleteLastItem}
 				 	  buttonDisabled={this.noItemsFound}/>
 
 		<ItemList items={this.state.items}/>
-
 
       </div>
     );

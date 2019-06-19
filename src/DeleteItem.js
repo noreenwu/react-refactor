@@ -10,8 +10,8 @@ function DeleteItem(props) {
 }
 
 DeleteItem.propTypes = {
-    onDeleteLastItem: PropTypes.func.isRequired,
-    noItemsFound: PropTypes.func.isRequired  
+    deleteLastItem: PropTypes.func.isRequired,
+    buttonDisabled: PropTypes.func.isRequired  
 }
 
 export default DeleteItem
